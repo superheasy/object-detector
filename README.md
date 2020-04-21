@@ -8,7 +8,7 @@ git clone https://github.com/bikz05/object-detector.git
 ## 修改内容
 将工程迁移到python3，并以conda包管理安装环境（环境包版本见condalist.txt及环境导出文件environment.yaml）。
 
-_已经将[UIUC Image Database for Car Detection]图片下载包含在本仓库中。并修改了相关目录架构，可以在"/bin/test-object-detector"下直接运行。
+_已经将[UIUC Image Database for Car Detection]图片下载至本仓库中，并修改了相关目录架构，可以在"/bin/test-object-detector"下直接运行。_
 
 2020-04-21
 
