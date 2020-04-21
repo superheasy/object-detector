@@ -1,17 +1,30 @@
 # object-detector
 Object Detector using HOG as descriptor and Linear SVM as classifier. | [Video](https://www.youtube.com/watch?v=SPXocFBjr70)
 
+## 基于Github
+```
+git clone https://github.com/bikz05/object-detector.git
+```
+## 修改内容
+将工程迁移到python3，并以conda包管理安装环境（环境包版本见condalist.txt及环境导出文件environment.yaml）。
+
+_已经将[UIUC Image Database for Car Detection]图片下载包含在本仓库中。并修改了相关目录架构，可以在"/bin/test-object-detector"下直接运行。
+
+2020-04-21
+
+
 ## Run the code
 
 I have created a single python script that can be used to test the code. To test the code, run the lines below in your terminal.
 
 ```shell
-git clone https://github.com/bikz05/object-detector.git
 cd object-detector/bin
 test-object-detector
 ```
 
 _The `test-object-detector` will download the [UIUC Image Database for Car Detection](https://cogcomp.cs.illinois.edu/Data/Car/) and train a classifier to detect cars in an image. The SVM model files will be stored in `data/models`, so that they can be resused later on._
+
+
 
 ### Configuration File
 

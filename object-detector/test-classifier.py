@@ -65,7 +65,7 @@ if __name__ == "__main__":
             if im_window.shape[0] != min_wdw_sz[1] or im_window.shape[1] != min_wdw_sz[0]:
                 continue
             # Calculate the HOG features
-            fd = hog(im_window, orientations, pixels_per_cell, cells_per_block, 'L1',visualize, normalize,"False")
+            fd = hog(im_window, orientations, pixels_per_cell, cells_per_block, 'L2-Hys',visualize, normalize,"False")
             pred = clf.predict(fd.reshape(1,-1))
             if pred == 1:
                 print("Detection:: Location -> ({}, {})".format(x, y))
