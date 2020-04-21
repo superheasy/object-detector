@@ -2,8 +2,11 @@
 Set the config variable.
 '''
 
-import ConfigParser as cp
+import configparser as cp
 import json
+
+import  os
+print(os.getcwd()) #获取当前工作目录路径
 
 config = cp.RawConfigParser()
 config.read('../data/config/config.cfg')

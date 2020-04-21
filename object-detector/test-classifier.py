@@ -25,8 +25,8 @@ def sliding_window(image, window_size, step_size):
     * y is the top-left y co-ordinate
     * im_window is the sliding window image
     '''
-    for y in xrange(0, image.shape[0], step_size[1]):
-        for x in xrange(0, image.shape[1], step_size[0]):
+    for y in range(0, image.shape[0], step_size[1]):
+        for x in range(0, image.shape[1], step_size[0]):
             yield (x, y, image[y:y + window_size[1], x:x + window_size[0]])
 
 if __name__ == "__main__":
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
 
     # Read the image
-    im = imread(args["image"], as_grey=False)
+    im = imread(args["image"], as_gray=False)
     min_wdw_sz = (100, 40)
     step_size = (10, 10)
     downscale = args['downscale']
@@ -65,12 +65,12 @@ if __name__ == "__main__":
             if im_window.shape[0] != min_wdw_sz[1] or im_window.shape[1] != min_wdw_sz[0]:
                 continue
             # Calculate the HOG features
-            fd = hog(im_window, orientations, pixels_per_cell, cells_per_block, visualize, normalize)
-            pred = clf.predict(fd)
+            fd = hog(im_window, orientations, pixels_per_cell, cells_per_block, 'L1',visualize, normalize,"False")
+            pred = clf.predict(fd.reshape(1,-1))
             if pred == 1:
-                print  "Detection:: Location -> ({}, {})".format(x, y)
-                print "Scale ->  {} | Confidence Score {} \n".format(scale,clf.decision_function(fd))
-                detections.append((x, y, clf.decision_function(fd),
+                print("Detection:: Location -> ({}, {})".format(x, y))
+                print("Scale ->  {} | Confidence Score {} \n".format(scale,clf.decision_function(fd.reshape(1,-1))))
+                detections.append((x, y, clf.decision_function(fd.reshape(1,-1)),
                     int(min_wdw_sz[0]*(downscale**scale)),
                     int(min_wdw_sz[1]*(downscale**scale))))
                 cd.append(detections[-1])
@@ -85,7 +85,7 @@ if __name__ == "__main__":
                 cv2.rectangle(clone, (x, y), (x + im_window.shape[1], y +
                     im_window.shape[0]), (255, 255, 255), thickness=2)
                 cv2.imshow("Sliding Window in Progress", clone)
-                cv2.waitKey(30)
+                cv2.waitKey(1)
         # Move the the next scale
         scale+=1
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         # Draw the detections
         cv2.rectangle(im, (x_tl, y_tl), (x_tl+w, y_tl+h), (0, 0, 0), thickness=2)
     cv2.imshow("Raw Detections before NMS", im)
-    cv2.waitKey()
+    cv2.waitKey(1)
 
     # Perform Non Maxima Suppression
     detections = nms(detections, threshold)
